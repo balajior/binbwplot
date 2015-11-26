@@ -1,0 +1,50 @@
+
+1. How to read an input file
+
+	1.1 If the file is in .csv format
+		exampleData <- read.csv("file_name.csv")
+
+	1.2 If the file is in tab delimited format
+		exampleData <- read.table("file_name.txt")
+
+2. How to add NA to empty fields in a file
+
+	exampleData <- read.csv("file_name.csv", na.strings="")
+	exampleData <- read.csv("file_name.csv", na.strings="")
+
+2. How to calculate row mean and extract a particular annotation column for making the plot
+
+	#read file
+	betaFile <- read.csv("file_name.csv", na.strings = "")
+
+	#To calculate row wise mean of the data matrix
+	betaMean <- data.frame(apply(betaFile[,a:b],1,mean))
+	#a and b are the first and last column numbers of the data matrix
+
+	#Extract annotation column
+	colLast <- data.frame(betaFile[,c])
+	#c is the annotation column number in the original data
+
+	#Merge the columns
+	mergedCol <- cbind(betaMean, colLast)
+
+	#Rename the columns
+	colnames(mergedCol)[1] <- "MeanValue"
+	colnames(mergedCol)[2] <- "GenomicRegion"
+
+	#Sort the table by second column(alphabetical order)
+	mergedOrder <- mergedCol[order(mergedCol$GenomicRegion),,]
+
+4. Run binbwplot
+
+	#Default mode
+
+	binbwplot(inData,
+				col="grey",
+				ylim=c(0,1),
+				breaks=10,
+				xlab="X-axis",
+				ylab="Y-axis",
+				main="Header of the binbwplot")
+
+
